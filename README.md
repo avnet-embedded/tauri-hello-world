@@ -1,12 +1,24 @@
-# React + Vite
+# Tauri Hello World
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Minimal Tauri app to help with figuring out how to build and run a Tauri app in Yocto.
 
-Currently, two official plugins are available:
+## Building 'manually'
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It's possible to bypass the usual `tauri-cli` build process, which is likely to be a pain to use as part of a Yocto build.
 
-## Expanding the ESLint configuration
+```
+# In top-level source directory, build the frontend
+# The build outputs go in the `./dist` folder (but this can be called anything as long as it's specified in the tauri.conf.json)
+npm run build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# In the Rust source directory (one level down from top level dir), do a cargo build
+# The tauri "custom-protocol" feature must be set, otherwise the resulting binary will have a "could not connect to localhost" error,
+# since it seems to assume a development server is running.
+cd src-tauri
+cargo build --release --features tauri/custom-protocol
+
+# The built binary ends up in `./target/release` as normal
+./target/release/app
+```
+
+These commands are also wrapped up in the `justfile` for convenience.
