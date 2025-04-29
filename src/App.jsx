@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
+import { info } from '@tauri-apps/plugin-log'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -9,7 +10,7 @@ function App() {
 
   const invoke = window.__TAURI__.core.invoke;
 
-  console.log(`The count is ${count}`)
+  info(`The count is ${count}`)
   invoke('my_ping_command', {
     message: `The count is ${count}`
   });
