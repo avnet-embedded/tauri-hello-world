@@ -23,3 +23,8 @@ serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
 tauri = { version = "2.5.0", features = [] }
 tauri-plugin-log = "2.0.0-rc"
+
+[patch.crates-io]
+# Support for disabling the X11 dependency was only added recently
+wry = { git = 'https://github.com/tauri-apps/wry', rev = "2c1c87424053210018015f3898e8e6b0e5bdaa1c" }
+tao = { git = 'https://github.com/tauri-apps/tao', rev = "ba65486abe14f2963e016731520e0cdadce3e199" }
