@@ -21,27 +21,3 @@ serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
 tauri = { version = "2.5.0", features = [] }
 tauri-plugin-log = "2.0.0-rc"
-
-# We require some patches here to work around the fact that the crates.io released versions of tao
-# and wry have a non-optional dependency on X11, which we do not have in our Yocto image. This
-# dependency has been made optional upstream, but not yet released, see:
-# - https://github.com/tauri-apps/wry/commit/eb40ac8b2ab691bbc0e75bc9c27ba53e2f645e03
-# - https://github.com/tauri-apps/tao/commit/4a08505412ed365ba160832305c5cfec5b53e622
-#
-# However, the Yocto integration of rust/cargo does not support git dependencies well - even if the
-# git dependency is fetched to the correct path before building, cargo stil tries to fetch it again
-# during the do_compile step, which fails due to the --frozen flag being set.
-#
-# So we need a slightly convoluted workaround, which is to:
-# 1. Specify patches here using git version of the repos
-# 2. Run `cargo vendor` to place all of the dependencies in the vendor directory
-# 3. Delete all of the vendored dependencies *except* for the git dependencies below
-# 4. Update .cargo/config.toml to point at the vendored dependencies instead for these git repos
-#
-# Once these changes make their way through into a crates.io release, it should be possible to
-# delete this entire section, the vendor directory and the .cargo/config.toml file and have
-# everything work without this mess...
-[patch.crates-io]
-wry = { git = 'https://github.com/tauri-apps/wry', rev = "2c1c87424053210018015f3898e8e6b0e5bdaa1c" }
-tao = { git = 'https://github.com/tauri-apps/tao', rev = "ba65486abe14f2963e016731520e0cdadce3e199" }
-tao-macros = { git = 'https://github.com/tauri-apps/tao', rev = "ba65486abe14f2963e016731520e0cdadce3e199" }

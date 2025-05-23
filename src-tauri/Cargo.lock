@@ -3269,7 +3269,6 @@ dependencies = [
 [[package]]
 name = "tao"
 version = "0.33.0"
-source = "git+https://github.com/tauri-apps/tao?rev=ba65486abe14f2963e016731520e0cdadce3e199#ba65486abe14f2963e016731520e0cdadce3e199"
 dependencies = [
  "bitflags 2.9.0",
  "core-foundation",
@@ -3305,7 +3304,6 @@ dependencies = [
 [[package]]
 name = "tao-macros"
 version = "0.1.3"
-source = "git+https://github.com/tauri-apps/tao?rev=ba65486abe14f2963e016731520e0cdadce3e199#ba65486abe14f2963e016731520e0cdadce3e199"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4748,7 +4746,6 @@ checksum = "1e9df38ee2d2c3c5948ea468a8406ff0db0b29ae1ffde1bcf20ef305bcc95c51"
 [[package]]
 name = "wry"
 version = "0.51.2"
-source = "git+https://github.com/tauri-apps/wry?rev=2c1c87424053210018015f3898e8e6b0e5bdaa1c#2c1c87424053210018015f3898e8e6b0e5bdaa1c"
 dependencies = [
  "base64 0.22.1",
  "block2 0.6.1",
